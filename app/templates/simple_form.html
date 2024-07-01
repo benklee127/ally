@@ -1,0 +1,8 @@
+<!-- <form method="post" action=""> -->
+<form action="/posts/new" method="POST" enctype="multipart/form-data"></form>
+    {{ form.csrf_token }}
+    <p>{{form.title.label}}: {{form.title}}</p>
+    <p>{{form.description.label}}: {{form.description}}</p>
+    <p>{{form.img.label}}: {{form.img}}</p>
+    <p>{{form.submit}}</p>
+</form>
