@@ -76,7 +76,7 @@ const sendQueryAction = (messages) => ({
 //thunk creator
 export const createCollectionThunk = (collection) => async (dispatch) => {
   try {
-    const res = await fetch(`/api/collections`, {
+    const res = await fetch(`/api/users/collections/create`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(collection),
@@ -84,6 +84,7 @@ export const createCollectionThunk = (collection) => async (dispatch) => {
     if (res.ok) {
       const newCollection = await res.json();
       dispatch(createUserCollection(newCollection));
+
       return newCollection;
     }
   } catch (err) {

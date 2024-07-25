@@ -27,6 +27,11 @@ def test_dataset():
     datasets = Dataset.query.all()
     return {'datasets' : [dataset.to_dict() for dataset in datasets]}
 
+@dataset_routes.route('/<int:dataset_id>')
+def get_dataset(dataset_id):
+    dataset = Dataset.query.get(dataset_id)
+    return dataset.to_dict()
+
 # @collection_routes.route('/<int:collection_id>')
 # def load_collection(collection_id):
 #     print("test /api/collections/<int:collection_id>")

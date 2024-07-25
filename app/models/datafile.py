@@ -13,6 +13,8 @@ class Datafile(db.Model):
     created_at = db.Column(db.DateTime, default=db.func.now())
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")))
 
+    chunk_count = db.Column(db.Integer, default=0)
+
     dataset = db.relationship("Dataset", back_populates="datafiles")
     user = db.relationship("User", back_populates="datafiles")
     def to_dict(self):

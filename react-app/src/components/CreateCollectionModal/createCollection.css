@@ -1,0 +1,64 @@
+.collection-modal {
+    position: fixed;
+    /* Make the modal fixed on the screen */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    /* Center the modal content horizontally */
+    align-items: center;
+    /* Center the modal content vertically */
+    z-index: 100;
+    /* Ensure the modal is on top of other elements */
+}
+
+.collection-form {
+    background-color: #fff;
+    /* White background for the modal content */
+    padding: 20px;
+    border-radius: 5px;
+    /* Add rounded corners */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    /* Slight shadow for depth */
+    width: 50%;
+    /* Adjust width as needed */
+}
+
+.form-header {
+    margin-bottom: 10px;
+    /* Add space between sections */
+    display: flex;
+    align-items: center;
+    /* Align labels with inputs vertically */
+    font-weight: bold;
+    /* Make form header text bolder */
+    color: #333;
+    /* Darker color for form header text */
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin-left: 10px;
+    /* Add space between label and input */
+    box-sizing: border-box;
+    /* Ensure padding doesn't affect width */
+    /* Inherit styles from existing textareas and selects if needed */
+
+}
+
+.collection-form button {
+
+    margin-right: 10px;
+    /* Add space between buttons */
+}
+
+.collection-form button:last-child {
+    margin-right: 0;
+    /* Remove margin from the last button */
+}

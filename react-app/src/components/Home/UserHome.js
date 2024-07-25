@@ -52,7 +52,7 @@ export default function UserHome() {
     };
 
   return (
-    <div>Logged in home
+    <div>
       <div></div>
       <button className='log-out' onClick={handleLogout}>Log out</button>
       <Collection></Collection>

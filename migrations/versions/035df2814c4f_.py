@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 28d4791ed917
+Revision ID: 035df2814c4f
 Revises: 
-Create Date: 2024-06-25 16:48:57.830712
+Create Date: 2024-07-22 16:59:18.451647
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '28d4791ed917'
+revision = '035df2814c4f'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -29,16 +29,6 @@ def upgrade():
     sa.Column('cover_photo', sa.String(length=255), nullable=True),
     sa.Column('biography', sa.String(length=1000), nullable=True),
     sa.Column('age', sa.Integer(), nullable=False),
-    sa.Column('occupation', sa.String(length=50), nullable=True),
-    sa.Column('hometown', sa.String(length=50), nullable=True),
-    sa.Column('city', sa.String(length=50), nullable=True),
-    sa.Column('country', sa.String(length=50), nullable=True),
-    sa.Column('website', sa.String(length=100), nullable=True),
-    sa.Column('facebook', sa.String(length=75), nullable=True),
-    sa.Column('twitter', sa.String(length=50), nullable=True),
-    sa.Column('instagram', sa.String(length=50), nullable=True),
-    sa.Column('pinterest', sa.String(length=50), nullable=True),
-    sa.Column('tumblr', sa.String(length=50), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
@@ -48,6 +38,7 @@ def upgrade():
     sa.Column('title', sa.String(length=80), nullable=False),
     sa.Column('description', sa.String(length=1000), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('embedding', sa.String(length=30), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -82,6 +73,7 @@ def upgrade():
     sa.Column('dataset_id', sa.Integer(), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=True),
+    sa.Column('chunk_count', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['dataset_id'], ['datasets.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')

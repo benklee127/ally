@@ -28,16 +28,6 @@ class User(db.Model, UserMixin):
     cover_photo = db.Column(db.String(255))
     biography = db.Column(db.String(1000))
     age = db.Column(db.Integer, nullable=False)
-    occupation = db.Column(db.String(50))
-    hometown = db.Column(db.String(50))
-    city = db.Column(db.String(50))
-    country = db.Column(db.String(50))
-    website = db.Column(db.String(100))
-    facebook = db.Column(db.String(75))
-    twitter = db.Column(db.String(50))
-    instagram = db.Column(db.String(50))
-    pinterest = db.Column(db.String(50))
-    tumblr = db.Column(db.String(50))
 
 
     images = db.relationship("Image", back_populates="user", cascade="delete, merge, save-update")
@@ -70,14 +60,5 @@ class User(db.Model, UserMixin):
             'profile_photo': self.profile_photo,
             'cover_photo': self.cover_photo,
             'biography' : self.biography,
-            'occupation' : self.occupation,
-            'hometown' : self.hometown,
-            'city' : self.city,
-            'country': self.country,
-            'website' : self.website,
-            'facebook': self.facebook,
-            'twitter': self.twitter,
-            'instagram' : self.instagram,
-            'pinterest' : self.pinterest,
-            'tumblr' : self.tumblr,
+
         }

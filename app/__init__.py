@@ -158,7 +158,7 @@ def upload(dataset_id):
         chunk_ids = []
         metadatas = []
         chunk_id = 1
-        while (chunk := filedata.read(500)) and (chunk_id < 10):
+        while (chunk := filedata.read(500)) and (chunk_id < 100):
             print(chunk)
             print(chunk_id)
             documents.append(chunk)
