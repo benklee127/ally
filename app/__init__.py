@@ -25,6 +25,8 @@ from openai import OpenAI
 import os
 from dotenv import load_dotenv
 
+
+
 load_dotenv()
 api_key = os.getenv('OPENAI_API_KEY')
 openai_client = OpenAI()
@@ -34,7 +36,6 @@ UPLOAD_FOLDER = '/home/juniper/ally2/Ally/app/uploads'
 cwd = os.getcwd()
 
 app = Flask(__name__, static_folder='../react-app/build', static_url_path='/')
-
 
 chroma_client = chromadb.PersistentClient(path="./chroma_db")
 sentence_transformer_ef = embedding_functions.SentenceTransformerEmbeddingFunction(model_name="all-mpnet-base-v2")

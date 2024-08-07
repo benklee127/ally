@@ -3,7 +3,8 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: Verdana, Geneva, Tahoma, sans-serif
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    overflow: hidden;
 }
 
 ul {
@@ -19,6 +20,14 @@ a:hover {
 }
 
 body {
-    background-color: rgb(38, 4, 4);
-    color: rgb(236, 234, 234)
+    background-color: var(--dark);
+    color: var(--light);
+}
+
+:root {
+    --dark: #475385;
+    --dark2: #1c1f2e;
+    --light: rgb(236, 234, 234);
+    --accent: #f9c784;
+    --accent2: #8f6d41;
 }

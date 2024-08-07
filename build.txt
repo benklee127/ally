@@ -1,0 +1,20 @@
+sudo apt install npm
+
+npm install react-scripts@4.0.3
+npm install react-scripts@latest
+
+npm install --prefix react-app
+
+npm run build --prefix react-app
+
+npm run build
+
+
+npm install react-scripts@4.0.3
+&& npm install --prefix react-app
+&& npm run build --prefix react-app
+&& pip install -r requirements.txt
+&& pip install psycopg2
+&& flask db init
+&& flask db migrate
+&& flask db upgrade && flask seed all

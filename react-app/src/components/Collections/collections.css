@@ -73,7 +73,7 @@
 .collections-list {
     width: 20%;
     /* Adjust width for list as needed */
-    border-right: 1px solid #ddd;
+    border-right: 1px solid var(--dark2);
     /* Add a border to separate list */
     padding: 10px;
 }
@@ -86,12 +86,13 @@
     border: none;
     padding: 5px 10px;
     /* Reduce padding for smaller buttons */
-    width: auto;
+    width: 100%;
     /* Allow buttons to adjust to content (optional) */
     text-align: left;
     /* Align button text to the left */
     cursor: pointer;
-    /* Indicate clickable button */
+
+
 }
 
 .collections-list button:hover,
@@ -111,6 +112,7 @@
 .collection-header {
     font-size: 1.2em;
     /* Increase font size for header */
+    height: 60px;
     margin-bottom: 10px;
     /* Add some space after the header */
 }
@@ -124,21 +126,26 @@
 .textbox {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--dark2);
     resize: vertical;
     /* Allow resizing the text area */
 }
 
 .collections-container {
     display: flex;
-
+    height: calc(100vh - 40px);
     overflow: hidden;
     /* Set height to 100vh (viewport height) */
 }
 
-.main-container {}
+.main-container {
+    overflow: hidden;
+    height: 100vh - 40px;
+
+}
 
 .query-container {
     overflow-y: auto;
-    height: 75vh;
+    height: calc(100vh - 200px);
+
 }

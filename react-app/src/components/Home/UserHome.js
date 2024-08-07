@@ -12,6 +12,7 @@ import {
 } from "../../store/image";
 import Favorites from "../Favorites";
 import Collection from "../Collections";
+import ProfileButton from "./ProfileButton";
 
 export default function UserHome() {
   const sessionUser = useSelector((state) => state.session.user);
@@ -53,8 +54,14 @@ export default function UserHome() {
 
   return (
     <div>
-      <div></div>
-      <button className='log-out' onClick={handleLogout}>Log out</button>
+      <div className="navbar-wrapper">
+        <div className="home-topbar">
+          <i class="fa-solid fa-cat"></i>&nbsp;Ally
+        </div>
+        <div className="prof-button-wrapper">
+          {<ProfileButton user={sessionUser} />}
+        </div>
+    </div>
       <Collection></Collection>
     </div>
   );

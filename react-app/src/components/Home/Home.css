@@ -1,0 +1,730 @@
+/* overall layout */
+.home-wrapper {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+}
+
+.test {}
+
+.navbar-wrapper {
+    width: 100vw;
+    /* height: 7vh; */
+    /* background-color: rgb(59, 4, 4); */
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    justify-items: center;
+    height: 40px;
+    width: 100%;
+    height: 40px;
+    background-color: var(--dark2);
+    /* color: lightgrey; */
+    font-size: medium;
+    display: flex;
+    align-items: center;
+}
+
+
+.main-wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    height: calc(100vh - 44px);
+    /* border: black solid 1px; */
+}
+
+.sidebar-wrapper {
+
+    min-width: 10vw;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+.workspace-bar {
+    height: 30px;
+    display: flex;
+    align-items: center;
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-bottom: 10px;
+    color: var(--light)
+}
+
+
+.channel-wrapper {
+    width: 88vw;
+    height: 100%;
+    background-color: rgb(245, 237, 237);
+    display: flex;
+
+}
+
+/* Sidebarlayout */
+.sidebar-channel-section {
+    min-height: 200px;
+    border-top: 0.5px solid rgb(151, 107, 107);
+    display: flex;
+    flex-direction: column;
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-bottom: 10px;
+    color: rgb(208, 189, 189);
+    flex-wrap: nowrap;
+
+}
+
+/* .sidebar-chat-section {
+    min-height: 200px;
+    border-top: dashed white;
+} */
+
+/* sidebar css */
+.create-channel-button>button {
+    /* background-color: rgb(102, 2, 2); */
+    text-align: left;
+    width: 100px;
+}
+
+.workspace-button {
+    width: 150px;
+    padding: 5px;
+    display: flex;
+}
+
+.workspace-button:hover {
+    background-color: rgb(151, 107, 107);
+    border-radius: 5px;
+}
+
+
+/* Channel layout */
+
+.channel-header {
+    height: 50px;
+    width: 100%;
+    border-top: 0.5px solid rgb(151, 107, 107);
+}
+
+.ch-title {
+    font-weight: 600;
+    font-size: 16px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.ch-title:hover {
+    background-color: rgb(203, 186, 186);
+
+}
+
+.ch-desc {
+    padding: 5px;
+    border-radius: 5px;
+    font-weight: 150;
+    font-size: smaller;
+    color: rgb(92, 87, 87);
+}
+
+.ch-desc:hover {
+    background-color: rgb(203, 186, 186);
+}
+
+.channel-header-wrapper {
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 5px;
+}
+
+.ch-header-section {
+    display: flex;
+    align-items: baseline;
+    padding: 10px;
+}
+
+.channel-gallery {
+    height: 58vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+    border-top: 0.5px solid rgb(151, 107, 107);
+}
+
+.thread-gallery {
+
+    border-top: 0.5px solid rgb(151, 107, 107);
+}
+
+.channel-help {
+    padding: 15px;
+    color: rgb(203, 186, 186);
+}
+
+.channel-messages {
+    padding: 10px;
+}
+
+.channel-message {
+    min-height: 200px;
+    width: 100%;
+    height: 20vh;
+    /* border-top: 0.5px solid rgb(151, 107, 107); */
+}
+
+.form-bot-banner {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 98%;
+}
+
+/* dm header css */
+
+.dm-header-wrapper {
+    height: 100%;
+}
+
+.dm-header {
+    height: 100%;
+    padding-left: 10px;
+    display: flex;
+    display: row;
+    align-items: center;
+
+}
+
+
+.dm-header-photo-div {
+    height: 35px;
+    width: 35px;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.dm-header-photo {
+    height: 35px;
+    width: 35px;
+}
+
+/* messages */
+
+.message {
+    display: flex;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 10px;
+    min-height: 40px;
+    width: 100%;
+}
+
+.message .image-wrapper {
+    height: 40px;
+    width: 40px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.message img {
+    max-height: 40px;
+}
+
+.message:hover {
+    background-color: var(--dark2);
+}
+
+.comment-button {
+    display: none;
+}
+
+.message:hover .comment-button {
+    display: flex;
+}
+
+.message:hover .comment-edit-button {
+    background-color: transparent;
+    border: transparent;
+}
+
+.message-header {
+    font-weight: 600;
+
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.message-name-date-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-content: flex-start;
+}
+
+.message-date {
+    font-weight: 100;
+    padding-left: 20px;
+    font-size: 12px;
+}
+
+.message-column {
+    padding-left: 10px;
+    display: flex;
+    width: 90%;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.message-content {
+    overflow-wrap: break-word;
+    /* width: 70vw; */
+
+    /* inline-size: 150px; */
+}
+
+.message-edit textarea {
+    width: 94%;
+    height: 100%;
+    margin: 5px;
+    box-sizing: border-box;
+    padding: 4px;
+    border: 2px solid rgb(151, 107, 107);
+    border-radius: 4px;
+    background-color: #f8f8f8;
+
+    resize: none;
+}
+
+.message-edit .hidden {
+    visibility: hidden;
+}
+
+
+.channel-button {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    text-align: left;
+    border-radius: 5px;
+    background-color: transparent;
+    border: none;
+    color: rgb(208, 189, 189);
+    flex-wrap: nowrap;
+}
+
+.channel-button button {
+    overflow-x: hidden;
+    width: 150px;
+    background-color: rgb(102, 2, 2);
+    text-align: left;
+    width: 100px;
+}
+
+
+.ch-button {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    text-align: left;
+    border-radius: 5px;
+    background-color: transparent;
+    border: none;
+    color: rgb(92, 60, 60);
+    flex-wrap: nowrap;
+    font-size: medium;
+}
+
+.ch-button:hover {
+    background-color: rgb(151, 107, 107);
+    color: white;
+    font-size: small;
+    border: none;
+}
+
+
+.sidebar-section-header {
+    padding-left: 5px;
+    padding-bottom: 5px;
+    overflow-x: hidden;
+    width: 150px;
+}
+
+.sidebar-channel-section button:hover {
+    background-color: rgb(151, 107, 107);
+    color: white;
+    border: none;
+}
+
+.create-channel-button {
+    width: 150px;
+    overflow-x: hidden;
+}
+
+.channel-section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.channel-section-split {
+    width: 50%;
+}
+
+.create-channel-button button {
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+    color: rgb(208, 189, 189);
+    font-weight: 100;
+    width: 150px;
+
+}
+
+/* .create-channel-button button:hover{
+    background-color: rgb(151, 107, 107);
+    color: white;
+    border: none;
+} */
+
+.create-channel-button button {
+    background-color: transparent;
+    border: none;
+}
+
+.message-form {
+    height: 25vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+    margin-top: 15px;
+    margin-right: 20px;
+    margin-left: 15px;
+}
+
+.message-form-button {
+    background-color: transparent;
+    border: transparent;
+    width: 100px;
+}
+
+.message-form-button>div {
+    background-color: transparent;
+    border: transparent;
+    font-size: x-large;
+    color: rgb(92, 60, 60);
+}
+
+.message-form-content {
+    width: 99%;
+    height: 90%;
+    margin: 5px;
+    box-sizing: border-box;
+    padding: 10px;
+    border: 2px solid rgb(151, 107, 107);
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    resize: none;
+}
+
+/* defaulthome stuff */
+.dh-topbar {
+    padding-left: 10px;
+    width: 100%;
+    height: 40px;
+    background-color: var(--dark2);
+    color: lightgrey;
+    font-size: small;
+    display: flex;
+    align-items: center;
+
+}
+
+.dh-main-wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    /* background-color: rgb(88, 20, 20); */
+}
+
+.dh-main-image {
+    width: 40vw;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    object-fit: fill;
+}
+
+.homebackground {
+    height: 100vh;
+    opacity: 0.7;
+    overflow: hidden;
+}
+
+.dh-main {
+    width: 40vw;
+    padding-top: 20vh;
+    padding-left: 10vw;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.dh-main>div {
+    padding-bottom: 30px;
+    overflow: hidden;
+}
+
+.dh-main button {
+    background-color: var(--accent);
+    border-radius: 5px;
+    border-color: var(--dark2);
+    border-style: solid;
+    border-width: 1px;
+    color: white;
+    font-weight: 600;
+    width: 200px;
+    height: 40px;
+}
+
+.dh-wrapper {
+    overflow: hidden;
+}
+
+.dh-main button:hover {
+    background-color: var(--accent2);
+}
+
+.dh-main-image {
+    width: 60vw;
+}
+
+/* scrollbars */
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: transparent;
+
+
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--dark);
+    border-radius: 5px;
+
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--dark2);
+}
+
+
+.join-workspace-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding-top: 10px;
+}
+
+/* .join-workspace-page>div {
+    border: dotted black 1px;
+}
+
+.join-workspace-page>div>div {
+    border: dotted red 1px;
+} */
+
+.join-workspace-brand {
+    padding: 25px;
+    font-size: 16pt;
+}
+
+.join-workspace-cta {
+    padding-bottom: 25px;
+    font-size: 30pt;
+    font-weight: 600;
+}
+
+.join-workspace-list {
+
+    width: 500px;
+    margin-top: 5px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px lightgray;
+    overflow: hidden;
+}
+
+.join-ws-list {
+    max-height: 500px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.join-workspace-list-header {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
+
+}
+
+
+
+.join-workspace-button {
+    border-top: solid rgb(230, 228, 228) 1px;
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
+    height: 75px;
+    width: fill;
+    gap: 10px;
+}
+
+.join-ws-title {
+    font-weight: 600;
+}
+
+.join-workspace-button:hover {
+    /* background-color: #522525; */
+    color: rgb(237, 236, 236);
+}
+
+.join-workspace-img {
+    width: 50px;
+    display: flex;
+    overflow: hidden;
+    border: rgb(236, 235, 235) solid 1px;
+    border-radius: 5px;
+}
+
+
+.join-workspace-img>img {
+    width: 50px;
+}
+
+.thread-wrapper {
+    width: 50%;
+    overflow-x: hidden;
+    border-left: solid #3c0c0c 1px;
+
+}
+
+.close-thread {
+    padding-right: 30px;
+}
+
+.thread-count {
+    width: 200px;
+    height: 35px;
+    margin-top: 10px;
+    /* padding-left: 15px; */
+    display: flex;
+    align-items: center;
+    text-justify: center;
+    border: solid 1px #9d8080;
+    border-radius: 5px;
+    justify-content: space-around;
+}
+
+.thread-count:hover {
+    background-color: rgb(247, 238, 238);
+}
+
+.thread-button {
+    /* padding-left: 30px; */
+    color: #8d7171
+}
+
+.prof-button-wrapper {
+    padding-right: 40px;
+}
+
+.profile-button {
+    width: 35px;
+    height: 35px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+
+
+
+.profile-button>img {
+    /* object-fit: cover; */
+    width: 35px;
+    height: 35px;
+}
+
+
+.profile-button>img:hover {
+    /* object-fit: cover; */
+    opacity: 0.8;
+}
+
+.profile-menu-button {
+    text-align: left;
+    border-radius: 5px;
+    background-color: transparent;
+    border: none;
+    color: rgb(92, 60, 60);
+    flex-wrap: nowrap;
+    font-size: medium;
+}
+
+.profile-menu-button:hover {
+    background-color: rgb(151, 107, 107);
+    color: white;
+    border: none;
+}
+
+
+.home-topbar {
+    width: 100%;
+    height: 40px;
+    background-color: var(--dark2);
+    font-size: medium;
+    display: flex;
+    align-items: center;
+}
+
+.profile-dropdown {
+    position: absolute;
+    background-color: rgb(255, 255, 255);
+    height: 80px;
+    right: 55px;
+    margin-top: 5px;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0px 0px 1px 1px;
+}
+
+.profile-menu-item {}
+
+.hidden {
+    display: none;
+}
