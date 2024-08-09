@@ -215,7 +215,7 @@ def post_query(dataset_id):
     llm_message =Message(
             content = llm_response,
             dataset_id = dataset_id,
-            user_id=1
+            user_id=2
             )
     db.session.add(llm_message)
     db.session.commit()

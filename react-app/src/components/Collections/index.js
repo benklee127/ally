@@ -108,7 +108,9 @@ function Collection() {
                       <div className="message" key={message.id}>
 
                         <div className="message-header">
-                          <div className="message-name-date-wrapper"></div>
+                          <div className="message-name-date-wrapper">
+
+                          </div>
 
                         </div>
                         <div className="message-content">{message.content}</div>

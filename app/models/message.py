@@ -8,9 +8,9 @@ class Message(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String, nullable=False)
-    dataset_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("datasets.id")))
+    dataset_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("datasets.id")),  nullable=False)
     created_at = db.Column(db.DateTime, default=db.func.now())
-    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")))
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
 
     dataset = db.relationship("Dataset", back_populates="messages")
     user = db.relationship("User", back_populates="messages")
@@ -20,4 +20,8 @@ class Message(db.Model):
             'content': self.content,
             'dataset_id': self.dataset_id,
             'created_at' : self.created_at,
+            'user': {
+                'id': self.user.id,
+                'profile_photo': self.user.profile_photo,
+            }
         }

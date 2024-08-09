@@ -126,9 +126,22 @@
 .textbox {
     width: 100%;
     padding: 10px;
-    border: 1px solid var(--dark2);
-    resize: vertical;
+    border: 1px solid var(--light);
+    resize: none;
+    height: 120px;
     /* Allow resizing the text area */
+}
+
+.input-container {
+    height: 120px;
+}
+
+.text-container {
+    height: 120px;
+}
+
+.text-container.textarea.textbox {
+    height: 120px;
 }
 
 .collections-container {
@@ -146,6 +159,6 @@
 
 .query-container {
     overflow-y: auto;
-    height: calc(100vh - 200px);
+    height: calc(100vh - 260px);
 
 }
