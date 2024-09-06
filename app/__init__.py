@@ -25,6 +25,7 @@ from openai import OpenAI
 import os
 from dotenv import load_dotenv
 
+from .utils import chunker, llmres
 
 
 load_dotenv()
@@ -154,21 +155,27 @@ def upload(dataset_id):
     collection = chroma_client.get_or_create_collection(name=collection_name, embedding_function=sentence_transformer_ef)
     # results = collection.query(query_texts=["what is selenium?"], n_results=3, include=['metadatas', 'distances', 'documents'])
 
-    with open (destination) as filedata:
-        documents = []
-        chunk_ids = []
-        metadatas = []
-        chunk_id = 1
-        while (chunk := filedata.read(500)) and (chunk_id < 100):
-            print(chunk)
-            print(chunk_id)
-            documents.append(chunk)
-            chunk_ids.append(str(chunk_id))
-            metadatas.append({"temp": "temp"})
-            chunk_id += 1
 
-        print("printing chunk ids: ",chunk_ids)
-    collection.add(documents = documents, metadatas= metadatas, ids = chunk_ids)
+    #replace with method to return chunks
+    
+
+    # with open (destination) as filedata:
+    #     documents = []
+    #     chunk_ids = []
+    #     metadatas = []
+    #     chunk_id = 1
+    #     while (chunk := filedata.read(500)) and (chunk_id < 100):
+    #         print(chunk)
+    #         print(chunk_id)
+    #         documents.append(chunk)
+    #         chunk_ids.append(str(chunk_id))
+    #         metadatas.append({"temp": "temp"})
+    #         chunk_id += 1
+
+    #     print("printing chunk ids: ",chunk_ids)
+
+    chunks = chunker(destination, 0)
+    collection.add(documents = chunks["documents"], metadatas= chunks["metadatas"], ids = chunks["ids"])
     return {"file": "file uploaded"}
 
 
@@ -188,30 +195,38 @@ def post_query(dataset_id):
     collection = chroma_client.get_or_create_collection(name="collection" + str(dataset_id),embedding_function=sentence_transformer_ef)
     # print('collection', collection)
     results = collection.query(query_texts=[content], n_results=3, include=['metadatas', 'distances', 'documents'])
+
+    
     [documents] = results['documents']
     # print('results', documents )
     # print('collection peek', collection.peek())
+    collection = Dataset.query.get(dataset_id)
+    print("collection: ", collection.res_llm)
+    # llmres(documents, content, )
+    # prompt = {"role":"system", "content": "You are an assistant that looks through the provided information to best answer the question presented"}
 
-    prompt = {"role":"system", "content": "You are an assistant that looks through the provided information to best answer the question presented"}
-
-    promptarr = []
-    promptarr.append(prompt)
+    # promptarr = []
+    # promptarr.append(prompt)
 
 
-    for document in documents:
-        promptmsg = {"role":"system", "content": document}
-        promptarr.append(promptmsg)
+    # for document in documents:
+    #     promptmsg = {"role":"system", "content": document}
+    #     promptarr.append(promptmsg)
 
-    promptarr.append({"role":"user", "content": content})
+    # #replace with llmres call
+    # promptarr.append({"role":"user", "content": content})
 
-    print (promptarr)
-    completion = openai_client.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages= promptarr
-    )
 
-    llm_response = completion.choices[0].message.content
-    print(llm_response)
+    # print (promptarr)
+    # completion = openai_client.chat.completions.create(
+    #     model="gpt-3.5-turbo",
+    #     messages= promptarr
+    # )
+
+    # llm_response = completion.choices[0].message.content
+    # print(llm_response)
+
+    llm_response = llmres(documents, content, collection.res_llm)
     llm_message =Message(
             content = llm_response,
             dataset_id = dataset_id,

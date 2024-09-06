@@ -10,11 +10,12 @@ class Dataset(db.Model):
     title = db.Column(db.String(80), nullable=False)
     description = db.Column(db.String(1000))
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
-    
+
     datafiles = db.relationship("Datafile", back_populates="dataset", cascade='delete, merge, save-update')
     messages = db.relationship("Message", back_populates="dataset", cascade='delete, merge, save-update')
     user = db.relationship("User", back_populates="datasets")
     embedding = db.Column(db.String(30))
+    res_llm = db.Column(db.String(30),  default="gpt3_5")
 
     file_count = db.Column(db.Integer, default=0)
     chunk_count = db.Column(db.Integer, default=0)
@@ -33,5 +34,6 @@ class Dataset(db.Model):
             'description': self.description,
             'user_id': self.user_id,
             'embedding': self.embedding,
+            'res_llm': self.res_llm,
             'datafiles': [datafile.to_dict() for datafile in self.datafiles],
         }

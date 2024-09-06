@@ -67,18 +67,18 @@ function Collection() {
 
             <div className="collections-list">
               {collections.map((collection) => (
-                <div>
+                <div className="collection-button">
                   <button key={collection.id} onClick={() => loadCollection(collection.id)}>
                       {collection.title}
 
                   </button>
               </div>
               ))}
-
+              <div id="create-collection-button" className="collection-button">
               <OpenModalButton
-                buttonText="Create Collection"
+                buttonText="+"
                 modalComponent={<CreateCollectionModal />}
-              />
+              /> </div>
             </div>
 
             <div className="main-container">
@@ -88,13 +88,13 @@ function Collection() {
                 buttonText="..."
                 modalComponent={<CollectionDetailsModal currentCollectionId={currentCollectionId} />}
                 />
-                <div>
-                    <form onSubmit={fileSubmit}>
+                <div >
+                  <form onSubmit={fileSubmit} className="upload-form">
                     <input
                       type="file"
                       accept="/*"
                       onChange={handleChange}/>
-                    <button type="submit">Upload</button>
+                    <button type="submit" class='upload-button'>Upload</button>
                   </form>
                 </div>
 
@@ -106,14 +106,21 @@ function Collection() {
                     {/* {collections[currentCollectionId].title} */}
                     { messages.map((message) => (
                       <div className="message" key={message.id}>
-
+                        <div className="image-column">
+                          <div className="image-wrapper">
+                            <img src={message.user.profile_photo} />
+                          </div>
+                        </div>
+                        <div className="message-column">
                         <div className="message-header">
                           <div className="message-name-date-wrapper">
-
+                              {message.user.id != sessionUser.id ? "AllyBot" : "You"}
+                              <div className="message-date">{message.created_at}</div>
                           </div>
 
+                          </div>
+                          <div className="message-content">{message.content}</div>
                         </div>
-                        <div className="message-content">{message.content}</div>
                       </div>
                     ))}
               </div>}

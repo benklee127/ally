@@ -105,7 +105,7 @@ def create_user_collection():
         first_message = Message(
             content = "Start by uploading a file!",
             dataset_id = newDataset.id,
-            user_id=0
+            user_id=2
             )
 
         db.session.add(first_message)

@@ -8,3 +8,4 @@ class DatasetForm(FlaskForm):
     user_id = IntegerField('user_id')
     embedding = StringField('embedding')
     submit = SubmitField('submit')
+    res_llm = StringField('res_llm')
