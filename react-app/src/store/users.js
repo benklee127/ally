@@ -13,12 +13,26 @@ const CREATE_COLLECTION = "collection/CREATE_COLLECTION";
 const GET_COLLECTION_MESSAGES = "messages/GET_COLLECTION_MESSAGES";
 const SEND_QUERY = "query/SEND_QUERY";
 const UPLOAD_FILE = "file/UPLOAD_FILE";
+const UPDATE_COLLECTION = "collection/UPDATE_COLLECTION"
+const LOAD_COLLECTION = "collection/LOAD_COLLECTION"
+
 //action creator
+
+
+const loadCollection = (collection) => ({
+  type: LOAD_COLLECTION,
+  collection,
+})
 
 const getUserCollections = (collections) => ({
   type: GET_USER_COLLECTIONS,
   collections,
 })
+
+const updateUserCollection = (collection) => ({
+  type: UPDATE_COLLECTION,
+  collection,
+});
 
 const createUserCollection = (collection) => ({
   type: CREATE_COLLECTION,
@@ -91,6 +105,25 @@ export const createCollectionThunk = (collection) => async (dispatch) => {
     return err;
   }
 }
+
+export const updateCollectionThunk = (collection, collection_id)=> async(dispatch) => {
+  try {
+    const res = await fetch(`/api/users/collections/update/${collection_id}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(collection),
+    });
+    if (res.ok) {
+      const updatedCollection = await res.json();
+      dispatch(updateUserCollection(updatedCollection));
+
+      return updatedCollection;
+    }
+  } catch (err) {
+    return err;
+  }
+}
+
 export const updateUserShowcaseThunk =
   (userId, showcaseInputs) => async (dispatch) => {
     // console.log("in update showcase thunk");
@@ -277,8 +310,9 @@ export const uploadFileThunk = (newFile, collectionId) => async (dispatch) => {
 
 
 
+
 //reducer function
-const initialState = { userFav: {}, userInfo: {}, userShowcase: {}, userProfilePhoto: false, userCoverPhoto: {}, collections: {}, currCollection: {}, messages: {} , filestatus: ""};
+const initialState = { userFav: {}, userInfo: {}, userShowcase: {}, userProfilePhoto: false, userCoverPhoto: {}, collections: {}, messages: {} , filestatus: ""};
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -297,7 +331,14 @@ const userReducer = (state = initialState, action) => {
       newState.filestatus = action.file.filestatus;
       return newState;
     }
-
+    case UPDATE_COLLECTION: {
+      const newState = {...state,
+        currCollection: {...state.currCollection},
+      };
+      newState.currCollection = action.payload;
+      return newState;
+    }
+    
     // case CREATE_COLLECTION:{
     //   const newState = {...state };
     //   const collections = action.collections.datasets

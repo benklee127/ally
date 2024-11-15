@@ -8,4 +8,12 @@ def basic_chunker(file):
             id += 1
 
 
+def basic_chunker2(file):
+    with open(file) as file:
+        
+        pass
+    return
+
+def semantic_chunker(file):
+    return
 

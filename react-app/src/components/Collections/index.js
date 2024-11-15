@@ -1,10 +1,14 @@
 import React, { useEffect,  useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getUserCollectionsThunk, getCollectionMessagesThunk, sendQueryThunk, uploadFileThunk } from "../../store/users";
+import { getUserCollectionsThunk, getCollectionMessagesThunk, sendQueryThunk, uploadFileThunk} from "../../store/users";
+import { loadCollectionThunk } from "../../store/collection";
 import "./collections.css"
 import CreateCollectionModal from "../CreateCollectionModal";
 import { OpenModalButton } from "../OpenModalButton";
 import CollectionDetailsModal from "../CollectionDetailsModal";
+import ReactMarkdown from 'react-markdown';
+import Markdown from 'react-markdown'
+
 function Collection() {
   const sessionUser = useSelector((state) => state.session.user);
   const collections = useSelector((state => state.users.collections));
@@ -25,6 +29,7 @@ function Collection() {
 
   const loadCollection = (collection_id) => {
     dispatch(getCollectionMessagesThunk(collection_id));
+    dispatch(loadCollectionThunk(collection_id))
     setCurrCollectionId(collection_id);
     setShowMessages(true)
   }
@@ -119,7 +124,7 @@ function Collection() {
                           </div>
 
                           </div>
-                          <div className="message-content">{message.content}</div>
+                          <div className="message-content"><Markdown>{message.content}</Markdown></div>
                         </div>
                       </div>
                     ))}

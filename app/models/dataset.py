@@ -13,6 +13,7 @@ class Dataset(db.Model):
 
     datafiles = db.relationship("Datafile", back_populates="dataset", cascade='delete, merge, save-update')
     messages = db.relationship("Message", back_populates="dataset", cascade='delete, merge, save-update')
+    chunks = db.relationship("Chunk", back_populates="dataset", cascade='delete, merge, save-update')
     user = db.relationship("User", back_populates="datasets")
     embedding = db.Column(db.String(30))
     res_llm = db.Column(db.String(30),  default="gpt3_5")
@@ -20,11 +21,6 @@ class Dataset(db.Model):
     file_count = db.Column(db.Integer, default=0)
     chunk_count = db.Column(db.Integer, default=0)
 
-    def file_count(self):
-        return {'filecount': self.filecount}
-
-    def chunk_count(self):
-        return {'chunkcount': self.chunkcount}
 
     def to_dict(self):
         print("to dict for dataset model")
@@ -37,3 +33,10 @@ class Dataset(db.Model):
             'res_llm': self.res_llm,
             'datafiles': [datafile.to_dict() for datafile in self.datafiles],
         }
+
+    def get_chunk_count(self):
+        return self.chunk_count
+    
+    def set_chunk_count(self, val):
+        self.chunk_count = val
+

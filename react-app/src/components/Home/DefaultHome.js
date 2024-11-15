@@ -30,7 +30,7 @@ export default function DefaultHome() {
 
 
                 </div>
-                <div>Knowledge-Driven AI</div>
+                <div>insert cool slogan</div>
                 <div className='dh-main-buttons'>
                   <button onClick={()=>history.push('/signup')}>Sign up</button>
                   <button onClick={()=>history.push('/login')}>Log in</button>

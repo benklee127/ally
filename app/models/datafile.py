@@ -12,7 +12,7 @@ class Datafile(db.Model):
     dataset_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("datasets.id")))
     created_at = db.Column(db.DateTime, default=db.func.now())
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")))
-
+    chunks = db.relationship("Chunk", back_populates="datafile", cascade='delete, merge, save-update')
     chunk_count = db.Column(db.Integer, default=0)
 
     dataset = db.relationship("Dataset", back_populates="datafiles")

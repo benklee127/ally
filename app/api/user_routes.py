@@ -88,6 +88,12 @@ def get_user_collections():
     print("sending user collections",datasets)
     return jsonify({'datasets': [dataset.to_dict() for dataset in datasets]})
 
+@user_routes.route("/collections/get/<int:collection_id>")
+def get_collection(collection_id):
+    print("hit get collection by id route")
+    dataset = Dataset.query.get(collection_id)
+    return dataset.to_dict()
+
 @user_routes.route('/collections/create', methods=["POST"])
 def create_user_collection():
     print('create collection route hit')
@@ -111,3 +117,17 @@ def create_user_collection():
         db.session.add(first_message)
         db.session.commit()
         return newDataset.to_dict()
+    
+@user_routes.route('/collections/update/<int:collection_id>', methods=["POST"])
+def update_user_collection(collection_id):
+    print('update collection route hit')
+    if current_user.is_authenticated:
+        form = DatasetForm()
+        update_collection = Dataset.query.get(collection_id)
+        update_collection.title = form.data['title']
+        update_collection.description = form.data['description']
+        update_collection.res_llm = form.data['res_llm']
+        db.session.commit()
+
+        return update_collection.to_dict()
+

@@ -150,31 +150,23 @@ def upload(dataset_id):
                             dataset_id=dataset_id,
                             user_id=current_user.id)
     db.session.add(newDatafile)
-    db.session.commit()
+    dataset = Dataset.query.get(dataset_id)
+    chunk_count = dataset.chunk_count
+    print("got chunk count: ", chunk_count)
+    
     collection_name = "collection" + str(dataset_id)
     collection = chroma_client.get_or_create_collection(name=collection_name, embedding_function=sentence_transformer_ef)
-    # results = collection.query(query_texts=["what is selenium?"], n_results=3, include=['metadatas', 'distances', 'documents'])
 
 
-    #replace with method to return chunks
+    chunks = chunker(destination, dataset.chunk_count)
+    # dataset.set_chunk_count(chunks['ids'][-1])
+    print("last id of new chunks", chunks['ids'][-1])
+
+    dataset.chunk_count = chunks['ids'][-1]
     
-
-    # with open (destination) as filedata:
-    #     documents = []
-    #     chunk_ids = []
-    #     metadatas = []
-    #     chunk_id = 1
-    #     while (chunk := filedata.read(500)) and (chunk_id < 100):
-    #         print(chunk)
-    #         print(chunk_id)
-    #         documents.append(chunk)
-    #         chunk_ids.append(str(chunk_id))
-    #         metadatas.append({"temp": "temp"})
-    #         chunk_id += 1
-
-    #     print("printing chunk ids: ",chunk_ids)
-
-    chunks = chunker(destination, 0)
+    
+    db.session.commit()
+    
     collection.add(documents = chunks["documents"], metadatas= chunks["metadatas"], ids = chunks["ids"])
     return {"file": "file uploaded"}
 
@@ -193,38 +185,12 @@ def post_query(dataset_id):
         db.session.add(new_query)
         db.session.commit()
     collection = chroma_client.get_or_create_collection(name="collection" + str(dataset_id),embedding_function=sentence_transformer_ef)
-    # print('collection', collection)
     results = collection.query(query_texts=[content], n_results=3, include=['metadatas', 'distances', 'documents'])
-
-    
     [documents] = results['documents']
-    # print('results', documents )
-    # print('collection peek', collection.peek())
+
     collection = Dataset.query.get(dataset_id)
     print("collection: ", collection.res_llm)
-    # llmres(documents, content, )
-    # prompt = {"role":"system", "content": "You are an assistant that looks through the provided information to best answer the question presented"}
-
-    # promptarr = []
-    # promptarr.append(prompt)
-
-
-    # for document in documents:
-    #     promptmsg = {"role":"system", "content": document}
-    #     promptarr.append(promptmsg)
-
-    # #replace with llmres call
-    # promptarr.append({"role":"user", "content": content})
-
-
-    # print (promptarr)
-    # completion = openai_client.chat.completions.create(
-    #     model="gpt-3.5-turbo",
-    #     messages= promptarr
-    # )
-
-    # llm_response = completion.choices[0].message.content
-    # print(llm_response)
+    print("documents: ", documents)
 
     llm_response = llmres(documents, content, collection.res_llm)
     llm_message =Message(

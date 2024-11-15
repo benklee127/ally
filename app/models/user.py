@@ -36,7 +36,8 @@ class User(db.Model, UserMixin):
     datasets = db.relationship("Dataset", back_populates="user", cascade="delete, merge, save-update")
     messages = db.relationship("Message", back_populates="user", cascade="delete, merge, save-update")
     datafiles = db.relationship("Datafile", back_populates="user", cascade="delete, merge, save-update")
-
+    chunks = db.relationship("Chunk", back_populates="user", cascade='delete, merge, save-update')
+    
     favorites = db.relationship("Image", secondary = "user_favorites", cascade="delete, merge, save-update", back_populates="favorites")
 
     @property

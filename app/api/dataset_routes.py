@@ -29,8 +29,22 @@ def test_dataset():
 
 @dataset_routes.route('/<int:dataset_id>')
 def get_dataset(dataset_id):
+    print('loading dataset ', dataset_id)
     dataset = Dataset.query.get(dataset_id)
     return dataset.to_dict()
+
+
+@dataset_routes.route('/update/<int:dataset_id>', methods=["POST"])
+def update_dataset(dataset_id):
+    form = DatasetForm()
+    update_dataset  = Dataset.query.get(dataset_id)
+    update_dataset.title = form.data['title']
+    update_dataset.decription = form.data['description']
+    update_dataset.res_llm = form.data['res_llm']
+    db.session.commit()
+    return update_dataset.to_dict()
+
+# @dataset_routes.route()
 
 # @collection_routes.route('/<int:collection_id>')
 # def load_collection(collection_id):

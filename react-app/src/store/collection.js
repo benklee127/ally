@@ -9,12 +9,17 @@ const getUserCollections = (collections) => ({
     collections,
 });
 
+const loadCollectionAction = (collection) => ({
+  type: LOAD_COLLECTION,
+  collection,
+})
+
 const createCollection = (collection) => ({
     type: CREATE_COLLECTION,
     collection,
 });
 
-const updateCollection = (collection) => ({
+const updateCollectionAction = (collection) => ({
     type: UPDATE_COLLECTION,
     collection,
 });
@@ -25,8 +30,7 @@ const deleteCollection = (collection) => ({
 });
 
 export const getUserCollectionsThunk = () => async (dispatch) => {
-    return
-    const res = await fetch(`/api/users/collections`)
+    const res = await fetch(`/api/datasets`)
 
     if (res.ok){
         console.log('res ok');
@@ -37,8 +41,36 @@ export const getUserCollectionsThunk = () => async (dispatch) => {
     }
 }
 
+export const loadCollectionThunk = (collectionId) => async(dispatch) => {
+  const res = await fetch(`/api/datasets/${collectionId}`)
+
+  if (res.ok) {
+    console.log('res ok')
+    const collection = await res.json();
+    console.log('collection loaded,', collection)
+    dispatch (loadCollectionAction(collection))
+    return collection
+  }
+}
+
+export const updateCollectionThunk = (collection, collection_id) => async(dispatch) => {
+  const res = await fetch (`/api/datasets/update/${collection_id}`, {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(collection),
+  });
+
+  if (res.ok) {
+    const update_collection = await res.json();
+
+    dispatch(updateCollectionAction(update_collection));
+    
+  }
+}
+
 const initialState = {
-    collections: []
+    collections: [], 
+    currCollection: null
   };
 
 const collectionReducer = (state = initialState, action) => {
@@ -49,6 +81,19 @@ const collectionReducer = (state = initialState, action) => {
           ...state,
           collections: action.collections
         };
+      case LOAD_COLLECTION: {
+        console.log('loading collection by id')
+        const newState = {...state};
+        newState.currCollection = action.collection
+        return newState
+      }
+      case UPDATE_COLLECTION: {
+        const newState = {...state};
+        newState.currCollection = action.collection
+        return newState
+      } 
+      
+        
     //   case CREATE_COLLECTION:
     //     return {
     //       ...state,

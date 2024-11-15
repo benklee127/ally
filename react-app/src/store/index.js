@@ -4,14 +4,14 @@ import session from "./session";
 import imageReducer from "./image";
 import commentReducer from "./comment";
 import userReducer from "./users";
-// import collectionReducer from "./collection";
+import collectionReducer from "./collection";
 
 const rootReducer = combineReducers({
   session,
   images: imageReducer,
   comments: commentReducer,
   users: userReducer,
-  // collections: collectionReducer,
+  collections: collectionReducer,
 });
 
 let enhancer;
