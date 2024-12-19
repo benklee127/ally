@@ -1,18 +1,18 @@
 import React, {useEffect, useState, useRef } from "react";
 import { useModal } from "../../context/Modal";
 import { useDispatch, useSelector } from "react-redux";
-import { createCollectionThunk, updateCollectionThunk } from "../../store/users";
+import { createCollectionThunk, updateCollectionThunk, uploadFileThunk } from "../../store/users";
 import './collectionDetails.css'
 
 
-function CollectionDetailsModal({currentCollectionId}) {
+function CollectionDetailsModal({currentCollectionId, menuoption}) {
     const dispatch = useDispatch();
     const collections = useSelector((state) => state.users.collections)
 
     const [errors, setErrors] = useState([]);
     const { closeModal } = useModal();
     const user = useSelector(state => state.session.user)
-    const [selectedMenu, setSelectedMenu] = useState(1);
+    const [selectedMenu, setSelectedMenu] = useState(menuoption);
 
     const collectionTitles = collections.map(collection => collection.name)
     console.log('id', currentCollectionId);
@@ -27,7 +27,14 @@ function CollectionDetailsModal({currentCollectionId}) {
     const ulRef = useRef();
     const [title, setTitle] = useState(currCollection.title);
     const [description, setDescription] = useState(currCollection.description);
+    const [file, setFile] = useState(undefined);
 
+    const [url, setUrl] = useState(undefined);
+
+    const handleChange = (event) => {
+      setFile(event.target.files[0]);
+    };
+  
 
     const toggleEditTitle = () => {
       setErrors([]);
@@ -44,16 +51,14 @@ function CollectionDetailsModal({currentCollectionId}) {
       setEditResLlm(true);
     }
 
-    const toggleEditLlm = () => {
-      setErrors([]);
-      setShowLlmMenu(true);
-
-    }
-    const openLlmMenu = () => {
-      console.log("open llm menu start, show:", showLlmMenu)
-      
-      setShowLlmMenu(!showLlmMenu);
-    }
+    const fileSubmit = async(e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('collection_id', currentCollectionId)
+    
+        dispatch(uploadFileThunk(formData, currentCollectionId))
+      }
 
     const closeLlmMenu = () => setShowLlmMenu(false);
 
@@ -84,6 +89,9 @@ function CollectionDetailsModal({currentCollectionId}) {
 
     const discardChanges = () => {
       setErrors([]);
+      setEditTitle(false);
+      setEditDesc(false);
+      setEditResLlm(false);
     };
   
 
@@ -127,7 +135,7 @@ function CollectionDetailsModal({currentCollectionId}) {
                   }
                   onClick={() => setSelectedMenu(3)}
                 >
-                  Settings
+                  Add Documents
                 </div>
               </div>
            
@@ -138,11 +146,11 @@ function CollectionDetailsModal({currentCollectionId}) {
         <div className="collection-body">
               {selectedMenu == 1 ? (
                 <div onSubmit={handleSubmit} className="channel-form">
-                  <div  onClick={() => toggleEditTitle()}> 
+                  <div className="cc-form-item" onClick={() => toggleEditTitle()}> 
                     <div className="form-input-header">
-                      <div> Collection name </div>
+                      <div className="form-header-title"> Title </div>
                       {editTitle ? (
-                        <div
+                        <div 
                           className={
                             "char-counter" +
                             (title.length >= 20 || title.length <= 2 ? "-max" : "")
@@ -165,12 +173,12 @@ function CollectionDetailsModal({currentCollectionId}) {
                         required
                       />
                     ) : (
-                      <div>{currCollection.title}</div>
+                      <div >{currCollection.title}</div>
                     )}
                   </div>
-                  <div onClick={() => toggleEditDesc()}>
+                  <div className="cc-form-item" onClick={() => toggleEditDesc()}>
                     <div className="form-input-header">
-                      <div>Description (optional)</div>
+                      <div className="form-header-title">Description</div>
 
                       {editDesc ? (
                         <div
@@ -194,20 +202,34 @@ function CollectionDetailsModal({currentCollectionId}) {
                           currCollection.description
                       )}
                   </div>
-                  <div onClick={() => toggleEditResLlm()}> clickable div?
-                  <div> Res llm {currCollection.res_llm}</div>
+                  <div  className="cc-form-item"   onClick={() => toggleEditResLlm()} >
                     <div className="form-input-header">
-                      {editResLlm ? 
-                      <div>
-                        {currCollection.res_llm != "gpt3_5" ? <div className="cc-form-item" onClick={()=>updateResLLm("gpt3_5")}>ChatGPT 3.5</div> : <></> }
-                        {currCollection.res_llm != "gpt4o" ? <div className="cc-form-item" onClick={()=>updateResLLm("gpt4o")}>ChatGPT 4o</div> : <></> }
-                        {currCollection.res_llm != "gpt4o_mini" ? <div className="cc-form-item" onClick={()=>updateResLLm("gpt4o_mini")}>ChatGPT 4o mini</div> : <></> }
-                        {currCollection.res_llm != "gpt4_turbo" ? <div className="cc-form-item" onClick={()=>updateResLLm("gpt4_turbo")}>ChatGPT 4 Turbo</div> : <></> }
+                      <div className="form-header-title">Model</div>
+              
+                    
+                      </div>
+                      {
+                        currCollection.res_llm == "gpt3_5" ?  "ChatGPT 3.5" : 
+                        currCollection.res_llm == "gpt4o" ? "ChatGPT 4o" : 
+                        currCollection.res_llm == "gpt4o_mini" ? "ChatGPT 4o mini" : 
+                        currCollection.res_llm == "gpt4_turbo" ? "ChatGPT 4 Turbo" :
+                        "error" 
+                      }
+                      
+                      <div className={showLlmMenu ? "llm-dropdown" : ""}>
+                          {editResLlm ? 
+                          <div>
+                            <div className="llm-dropdown-item"></div>
+                            {resLlm != "gpt3_5" ? <div className="llm-dropdown-item" onClick={()=>updateResLLm("gpt3_5")}>ChatGPT 3.5</div> : <div className="llm-dropdown-item selected-llm">ChatGPT 3.5</div> }
+                            {resLlm != "gpt4o" ? <div className="llm-dropdown-item" onClick={()=>updateResLLm("gpt4o")}>ChatGPT 4o</div> : <div className="llm-dropdown-item selected-llm">ChatGPT 4o</div> }
+                            {resLlm != "gpt4o_mini" ? <div className="llm-dropdown-item" onClick={()=>updateResLLm("gpt4o_mini")}>ChatGPT 4o mini</div> : <div className="llm-dropdown-item selected-llm">ChatGPT 4o mini</div> }
+                            {resLlm != "gpt4_turbo" ? <div className="llm-dropdown-item" onClick={()=>updateResLLm("gpt4_turbo")}>ChatGPT 4 Turbo</div> : <div className="llm-dropdown-item selected-llm">ChatGPT 4 Turbo</div> }
+                            </div>
+                          : <></>}
                         </div>
-                      : <></>}
-                    </div>
                   </div>
-                { editDesc || editTitle || editResLlm? (
+
+                {  (editDesc || editTitle || editResLlm)? (
                   <div className="cc-form-item-save">
                       <div className="cc-update-buttons">
                         <div className="cc-update-save" onClick={handleSubmit}>
@@ -220,7 +242,8 @@ function CollectionDetailsModal({currentCollectionId}) {
                   </div>
                 ) : (
                   ""
-                )}
+                )} 
+
           </div>
           
         ): selectedMenu == 2 ? (
@@ -234,42 +257,59 @@ function CollectionDetailsModal({currentCollectionId}) {
                       ))}
                   </div>
               ) : (
-                  <div className="channel-form">
-                      <div className="cc-form-item" id="llm_dropdown" onClick={()=>toggleEditResLlm()}>
-                        {(currCollection.res_llm == "gpt3_5") ?
-                            "ChatGPT 3.5" :
-                            (currCollection.res_llm == "gpt4o") ?
-                            "ChatGPT 4o":
-                            (currCollection.res_llm == "gpt4o_mini") ?
-                            "ChatGPT 4o mini":
-                            (currCollection.res_llm == "gpt4_turbo") ?
-                            "ChatGPT 4 Turbo":
-                            "error"
-                        }
-                      </div>
-                      {editResLlm ? 
-                      <div>
-                        hitest
-                        {currCollection.res_llm != "gpt3_5" ? <div className="cc-form-item" onClick={()=>updateResLLm("gpt3_5")}>ChatGPT 3.5</div> : <></> }
-                        {currCollection.res_llm != "gpt4o" ? <div className="cc-form-item" onClick={()=>updateResLLm("gpt4o")}>ChatGPT 4o</div> : <></> }
-                        {currCollection.res_llm != "gpt4o_mini" ? <div className="cc-form-item">ChatGPT 4o mini</div> : <></> }
-                        {currCollection.res_llm != "gpt4_turbo" ? <div className="cc-form-item">ChatGPT 4 Turbo</div> : <></> }
-                        </div>
-                      : <></>}
-                       {showLlmMenu ? 
-                        <div className="cc-update-buttons">
-                          <div className="cc-update-save" onClick={handleSubmit}>
-                            Save
-                          </div>
-                          {/* <div className="cc-update-cancel" onClick={discardChanges}>
-                            Cancel
-                          </div> */}
-                        </div>
-                      : <></>}
+                <div className="channel-form">
+                  <div className="cc-form-item">
+                    <form onSubmit={fileSubmit} className="upload-form">
+                      <input
+                        type="file"
+                        accept="/*"
+                        onChange={handleChange}/>
+                      {file ? <button type="submit" className='upload-button' >Upload</button> : ""}
+                    </form>
+                  </div>
+                  <div className="cc-form-item">
+                    Web Url
+                  </div>
                 </div>
+                //   <div className="channel-form">
+                //       <div className="cc-form-item" id="llm_dropdown" onClick={()=>toggleEditResLlm()}>
+                //         {(currCollection.res_llm == "gpt3_5") ?
+                //             "ChatGPT 3.5" :
+                //             (currCollection.res_llm == "gpt4o") ?
+                //             "ChatGPT 4o":
+                //             (currCollection.res_llm == "gpt4o_mini") ?
+                //             "ChatGPT 4o mini":
+                //             (currCollection.res_llm == "gpt4_turbo") ?
+                //             "ChatGPT 4 Turbo":
+                //             "error"
+                //         }
+                //       </div>
+                //       {editResLlm ? 
+                //       <div>
+                        
+                //         {resLlm != "gpt3_5" ? <div className="cc-form-item" onClick={()=>updateResLLm("gpt3_5")}>ChatGPT 3.5</div> : <></> }
+                //         {resLlm != "gpt4o" ? <div className="cc-form-item" onClick={()=>updateResLLm("gpt4o")}>ChatGPT 4o</div> : <></> }
+                //         {resLlm != "gpt4o_mini" ? <div className="cc-form-item">ChatGPT 4o mini</div> : <></> }
+                //         {resLlm != "gpt4_turbo" ? <div className="cc-form-item">ChatGPT 4 Turbo</div> : <></> }
+                //         </div>
+                //       : <></>}
+                //        {showLlmMenu ? 
+                //         <div className="cc-update-buttons">
+                //           <div className="cc-update-save" onClick={handleSubmit}>
+                //             Save
+                //           </div>
+                //           {/* <div className="cc-update-cancel" onClick={discardChanges}>
+                //             Cancel
+                //           </div> */}
+                //         </div>
+                //       : <></>}
+                // </div>
               )
               }
+            
             </div>
+            
+            
         </div>
     )
 };

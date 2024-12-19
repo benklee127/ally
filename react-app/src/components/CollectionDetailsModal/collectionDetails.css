@@ -26,13 +26,14 @@
     background-color: rgb(238, 238, 238);
     min-height: 350px;
     min-width: 500px;
-    height: 80%;
-    width: 80%;
+    height: 85%;
+    width: 85%;
     /* padding: 20px; */
     display: flex;
     flex-direction: column;
     border-radius: 10px;
-    overflow: hidden;
+  
+    overflow-y: auto;
     /* opacity: 1; */
   }
   
@@ -83,6 +84,7 @@
     border: rgb(211, 211, 211) solid 1px;
     /* top: -10px; */
     margin: 30px;
+    overflow-y: auto;
     /* display:flex;
       flex-direction: column; */
   }
@@ -90,7 +92,6 @@
   .cc-form-item {
     
     padding: 20px;
-    padding-bottom: 10px;
     border-bottom: rgb(211, 211, 211) solid 1px;
     transition: 100ms;
   }
@@ -98,6 +99,13 @@
   .form-input-header {
     display: flex;
     justify-content: space-between;
+    padding-bottom: 10px;
+    
+  }
+
+  .form-header-title {
+    
+    font-weight: 500;
   }
   
   .cc-form-item:hover {
@@ -114,17 +122,15 @@
   }
   
   .cc-form-item-save {
-    height: 40px;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border-bottom: rgb(211, 211, 211) solid 1px;
     transition: 100ms;
+    padding: 20px;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-end;
   }
   
   .cc-form-item>textarea {
-    width: 99%;
+    width: 100%;
     min-height: 30px;
     margin: 0px;
     box-sizing: border-box;
@@ -135,16 +141,12 @@
     resize: none;
   }
   
-  /* .cc-form-item > textarea:focus {
-      background-color: red;
-      font-size: xx-large;
-    } */
   
   .cc-update-buttons {
-    padding-top: 5px;
-    width: 260px;
+    width:auto;
     display: flex;
     flex-direction: row;
+
     /* justify-content: space-between; */
   }
   
@@ -154,15 +156,19 @@
     padding: 5px;
     margin-right: 5px;
     transition: 100ms;
+    width: 100px;
+    text-align: center;
   }
   
   .cc-update-save:hover {
-    background-color: rgb(169, 210, 169);
+    background-color: var(--dark-light);
     transition: 100ms;
+    color:#f8f8f8;
   }
   
   .cc-update-cancel:hover {
-    background-color: rgb(226, 177, 164);
+    background-color: var(--accent);
+    color:#f8f8f8;
     transition: 100ms;
   }
   
@@ -178,5 +184,28 @@
   
   .collection-body {
     color: black;
-    z-index: -1;
+    overflow-y: auto;
+  }
+
+  .llm-dropdown {
+    display: flex;
+    border: rgb(211, 211, 211) solid 1px;
+  }
+  .llm-dropdown-item {
+    padding: 20px;
+    border-bottom: rgb(211, 211, 211) solid 1px;
+    transition: 100ms;
+    border-radius: 5px;
+  }
+
+  .selected-llm {
+    background-color: var(--dark-light);
+    color: white;
+  }
+
+  .details-footer {
+    width: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-end;
   }

@@ -14,24 +14,24 @@ function SignupFormPage() {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  // const [confirmPassword, setConfirmPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
   if (sessionUser) return <Redirect to="/" />;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // if (password === confirmPassword) {
+    if (password === confirmPassword) {
     const data = await dispatch(
-      signUp(username, email, password, "tempfirst", "templast", 1)
+      signUp(username, email, password, "tempfirst", "templast", 18)
     );
     // console.log("data", data);
     if (data) {
       setErrors(data);
     }
-    // } else {
-    //     setErrors(['Confirm Password field must be the same as the Password field']);
-    // }
+    } else {
+        setErrors(['Confirm Password field must be the same as the Password field']);
+    }
   };
 
   return (
@@ -75,7 +75,7 @@ function SignupFormPage() {
                   required
                 />
               </label>
-              {/* <label>
+              <label>
             <input
               type="password"
               placeholder="Confirm Password"
@@ -83,7 +83,7 @@ function SignupFormPage() {
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
             />
-          </label> */}
+          </label>
               <div className="login">
                 <button type="submit">Submit</button>
               </div>

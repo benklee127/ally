@@ -1,64 +1,3 @@
-/* .collections-container {
-    display: flex;
-    flex-direction: row;
-
-    align-items: left;
-    width: 100%;
-    height: 100%;
-    padding: 10px;
-    margin: 0;
-    outline-style: dotted;
-    outline-color: white;
-}
-
-
-.collections-list {
-    padding: 10px;
-    width: 10%;
-    outline-style: dotted;
-    outline-color: white;
-}
-
-.query-container {
-    padding: 10px;
-    width: 100%;
-    height: 60%;
-    overflow-y: auto;
-    outline-style: dotted;
-    outline-color: white;
-    overflow-anchor: bottom;
-
-}
-
-.collection-header {
-    padding: 10px;
-    width: 100%;
-    outline-style: dotted;
-    outline-color: white;
-}
-
-
-.main-container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 90%;
-    outline-style: dotted;
-    outline-color: white;
-}
-
-.text-container {
-
-    width: 100%;
-    justify-items: center;
-    align-items: center;
-    flex-direction: column;
-}
-
-.textbox {
-    width: 90%;
-
-} */
 .collections-container {
     display: flex;
 
@@ -68,12 +7,19 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
+    background-color: var(--accent);
+    padding: 10px;
+    height: 50px;
+    width: fill;
+    font-size: larger;
+    /* border-bottom: rgb(211, 211, 211) solid 1px; */
 }
 
 .collections-list {
-    width: 20%;
+    width: 200px;
     /* Adjust width for list as needed */
-    border-right: 1px solid var(--dark2);
+    background-color: var(--dark);
     /* Add a border to separate list */
     padding: 10px;
 }
@@ -103,42 +49,65 @@
     /* Change background on hover */
 }
 
-.main-container {
-    flex: 1;
-    /* Take up remaining space */
+
+.input-container {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
     padding: 10px;
 }
 
-.collection-header {
-    font-size: 1.2em;
-    /* Increase font size for header */
-    height: 60px;
-    margin-bottom: 10px;
-    /* Add some space after the header */
-}
-
-.query-container,
-.input-container {
-    margin-bottom: 10px;
-    /* Add space between sections */
-}
-
-.textbox {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid var(--light);
-    resize: none;
-    height: 120px;
-    /* Allow resizing the text area */
-}
-
-.input-container {
-    height: 120px;
-}
 
 .text-container {
     height: 120px;
+    width: calc(100% - 130px);
+    box-sizing: border-box;
 }
+
+.textbox {
+    box-sizing: border-box;
+    width: fill;
+    padding: 10px;
+    border: 1px solid var(--light3);
+    border-radius: 5px;
+    resize: none;
+    height: 120px;
+    /* margin-lseft: 10px; */
+    /* Allow resizing the text area */
+}
+
+.add-content-menu-button {
+    box-sizing: border-box;
+    height:120px;
+    width: 120px;
+    padding-left: 10px;
+    border-radius: 5px;
+    background-color: white;
+    border: 1px solid var(--light3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 1000;
+    color: var(--light2);
+}
+
+.add-document-modal {
+    position:relative;
+    color: black;
+    border: 10px solid var(--accent);
+}
+
+.add-content-menu-button:hover {
+    background-color: var(--accent-light);
+    color: white;
+} 
+
+.textbox:focus {
+    outline: none;
+    border: none;
+}
+
+
 
 .text-container.textarea.textbox {
     height: 120px;
@@ -153,19 +122,50 @@
 
 .main-container {
     overflow: hidden;
-    height: 100vh - 40px;
-
+    width: calc(100vw - 200px);
+    height: calc(100vh - 40px);
+    /* Take up remaining space */
+    
+    background-color: var(--light);
+    color: var(--dark3)
 }
 
 .query-container {
     overflow-y: auto;
-    height: calc(100vh - 260px);
+    overflow-x: auto  ;
+    height: calc(100vh - 230px);
+    width:fill;
 
 }
 
 
+.collection-title {
+    padding-left: 10px;
+    font-size: large;
+    /* font-weight: 500; */
+    color: var(--dark2);
+}
 
+.collection-header {
+    /* font-size: x-large; */
+}
 
+.collection-menu {
+    font-size: larger;
+    box-sizing: border-box;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+.collection-menu:hover {
+    font-size: larger;
+    background-color: var(--accent-dark);
+    color: var(--light);
+}
 #create-collection-button {
     background-color: var(--accent);
     color: var(--dark2);

@@ -5,7 +5,7 @@ import SignupFormPage from "./components/SignupFormPage";
 import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import Home from "./components/Home";
-
+import addfile from "./assets/add-file.svg";
 
 
 function App() {
@@ -20,6 +20,7 @@ function App() {
       {/* <Navigation isLoaded={isLoaded} /> */}
       {isLoaded && (
         <Switch>
+          {/* <img src={addfile} alt="" /> */}
           <Route exact path="/">
             <Home />
           </Route>

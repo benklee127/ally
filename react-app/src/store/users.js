@@ -256,7 +256,7 @@ export const editUserCoverPhotoThunk = (photo, userId) => async ( dispatch ) => 
 };
 export const getUserCollectionsThunk = () => async (dispatch) => {
 
-  const res = await fetch(`/api/users/collections`)
+  const res = await fetch(`/api/datasets/`)
 
   if (res.ok){
       console.log('res ok');

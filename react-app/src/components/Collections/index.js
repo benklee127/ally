@@ -6,8 +6,12 @@ import "./collections.css"
 import CreateCollectionModal from "../CreateCollectionModal";
 import { OpenModalButton } from "../OpenModalButton";
 import CollectionDetailsModal from "../CollectionDetailsModal";
-import ReactMarkdown from 'react-markdown';
-import Markdown from 'react-markdown'
+import ReactMarkdown from 'react-markdown'
+import remarkRehype from 'remark-rehype'
+import addfile from "../../assets/add-file.svg";
+// import remarkGfm from 'remark-gfm'
+// import DragDrop from "../Tools/DragDrop.js"
+
 
 function Collection() {
   const sessionUser = useSelector((state) => state.session.user);
@@ -57,7 +61,18 @@ function Collection() {
 
     dispatch(uploadFileThunk(formData, currentCollectionId))
   }
-
+  
+  const timeFormat = (date) => {
+    const today = new Date()
+    const msgDate = new Date(date)
+    
+    const month = msgDate.toLocaleString('default', { month: 'short' });
+    const day = msgDate.toLocaleDateString('default', { day: 'numeric' });
+    const time = msgDate.toLocaleTimeString('en-US',{ hour: "2-digit", minute: "2-digit" })
+    return month + " " + day + " " + time 
+    
+    
+  }
 
 
   console.log('collections: ', collections);
@@ -69,7 +84,6 @@ function Collection() {
   else {
     return (
         <div className="collections-container" >
-
             <div className="collections-list">
               {collections.map((collection) => (
                 <div className="collection-button">
@@ -86,22 +100,26 @@ function Collection() {
               /> </div>
             </div>
 
+
             <div className="main-container">
               {currentCollectionId &&
-              <div className="collection-header">{collections[currentCollectionId-1].title}
+              <div className="collection-header"><div className="collection-title">{collections[currentCollectionId-1].title}</div>
+                
+                <div className="collection-menu">
                 <OpenModalButton
-                buttonText="..."
-                modalComponent={<CollectionDetailsModal currentCollectionId={currentCollectionId} />}
+                buttonDiv="<i class='fa-solid fa-bars' fa-8x></i>" 
+                modalComponent={<CollectionDetailsModal currentCollectionId={currentCollectionId} menuoption={1} />}
                 />
-                <div >
-                  <form onSubmit={fileSubmit} className="upload-form">
+                </div>
+                
+                  {/* <form onSubmit={fileSubmit} className="upload-form">
                     <input
                       type="file"
                       accept="/*"
                       onChange={handleChange}/>
-                    <button type="submit" class='upload-button'>Upload</button>
-                  </form>
-                </div>
+                    {file ? <button type="submit" className='upload-button' >Upload</button> : ""}
+                  </form> */}
+               
 
               </div>}
               <div className="query-container">
@@ -120,19 +138,20 @@ function Collection() {
                         <div className="message-header">
                           <div className="message-name-date-wrapper">
                               {message.user.id != sessionUser.id ? "AllyBot" : "You"}
-                              <div className="message-date">{message.created_at}</div>
+                              <div className="message-date">{timeFormat(message.created_at)}</div>
                           </div>
 
                           </div>
-                          <div className="message-content"><Markdown>{message.content}</Markdown></div>
+                          {console.log(message.content)}
+                          <div className="message-content"><ReactMarkdown>{message.content}</ReactMarkdown></div>
                         </div>
                       </div>
                     ))}
               </div>}
             </div>
-            <div className="input-container">
-                <div className="text-container">
-                  <form onSubmit={querySubmit}>
+              <div className="input-container">
+              
+                  <form onSubmit={querySubmit} className="text-container">
                     <textarea className="textbox"
                     value={content}
                     preview="preview"
@@ -147,17 +166,26 @@ function Collection() {
                     />
 
                   </form>
+
+                  {/* <div>Upload File:
+                      <form onSubmit={fileSubmit}>
+                      <input
+                        type="file"
+                        accept="/*"
+                        onChange={handleChange}/>
+                      <button type="submit">Upload</button>
+                    </form>
+                  </div> */}
+
+                <div className="add-content-menu-button" >
+                  <OpenModalButton
+                  buttonDiv="<i class='fa-solid fa-file-circle-plus fa-4x'/>"
+                  modalComponent={<CollectionDetailsModal currentCollectionId={currentCollectionId} menuoption={2} />}
+                  />
+
                 </div>
-                {/* <div>Upload File:
-                    <form onSubmit={fileSubmit}>
-                    <input
-                      type="file"
-                      accept="/*"
-                      onChange={handleChange}/>
-                    <button type="submit">Upload</button>
-                  </form>
-                </div> */}
               </div>
+
             </div>
         </div>
 
