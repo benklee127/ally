@@ -4,6 +4,8 @@
 .pnp.js
 .env
 node_modules
+/chroma_db
+/instance
 
 # testing
 /coverage

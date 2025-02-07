@@ -13,4 +13,5 @@ from app.api.aws_helpers import ALLOWED_EXTENSIONS
 class FileForm(FlaskForm):
     file = FileField("File", validators=[FileRequired()])
     collection_id = StringField('collection_id', validators=[DataRequired(), Length(max=255)])
+    chunk_size = StringField('chunk_size',default=4096)
     submit = SubmitField('submit')

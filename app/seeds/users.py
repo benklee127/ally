@@ -7,7 +7,7 @@ def seed_users():
 
     demetrius = User(
         username='Demetrius', email='demo@aa.io', password='password',
-        first_name = "Demetrius", last_name="Lander", profile_photo="https://images.unsplash.com/photo-1676532223498-0164d21f1b71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80", cover_photo="https://free4kwallpapers.com/uploads/wallpaper/werewolf--wallpaper-1024x768-wallpaper.jpg", age=20)
+        first_name = "Demetrius", last_name="Lander", profile_photo="https://i.pinimg.com/736x/f2/d3/47/f2d347c78eefb07817ef77faab6799a2.jpg", age=20)
 
     allybot = User(
         username='AllyBot', email='allybot@aa.io', password='password',

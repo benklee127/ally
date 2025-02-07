@@ -180,7 +180,7 @@ function Collection() {
                 <div className="add-content-menu-button" >
                   <OpenModalButton
                   buttonDiv="<i class='fa-solid fa-file-circle-plus fa-4x'/>"
-                  modalComponent={<CollectionDetailsModal currentCollectionId={currentCollectionId} menuoption={2} />}
+                  modalComponent={<CollectionDetailsModal currentCollectionId={currentCollectionId} menuoption={3} />}
                   />
 
                 </div>

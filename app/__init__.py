@@ -26,7 +26,7 @@ import os
 from dotenv import load_dotenv
 
 from .utils import chunker, llmres
-
+import pprint
 
 load_dotenv()
 api_key = os.getenv('OPENAI_API_KEY')
@@ -141,7 +141,10 @@ def upload(dataset_id):
     target=os.path.join(UPLOAD_FOLDER)
     print(app.config['UPLOAD_FOLDER'])
     print ("form data", form.data)
+
+    
     file = request.files['file']
+    chunk_size = form.data['chunk_size']
     filename = file.filename
     destination="/".join([collectionFolder, filename])
     file.save(destination)
@@ -158,8 +161,11 @@ def upload(dataset_id):
     collection = chroma_client.get_or_create_collection(name=collection_name, embedding_function=sentence_transformer_ef)
 
 
-    chunks = chunker(destination, dataset.chunk_count)
+    chunks = chunker(destination, dataset.chunk_count, chunk_size)
+    print('chunk size, count ', chunk_size, chunks)
     # dataset.set_chunk_count(chunks['ids'][-1])
+    # pprint.pprint(chunks)
+ 
     print("last id of new chunks", chunks['ids'][-1])
 
     dataset.chunk_count = chunks['ids'][-1]

@@ -13,7 +13,7 @@ class Chunk(db.Model):
     dataset_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("datasets.id")))
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")))
     
-
+    
     dataset = db.relationship("Dataset", back_populates="chunks")
     datafile = db.relationship("Datafile", back_populates="chunks")
     user = db.relationship("User", back_populates="chunks")
